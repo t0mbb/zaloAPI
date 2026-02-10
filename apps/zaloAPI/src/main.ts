@@ -1,4 +1,6 @@
 // apps/zaloAPI/src/main.ts
+// apps/zaloAPI/src/main.ts
+import 'dotenv/config';
 import express from 'express';
 import router from './routes';
 

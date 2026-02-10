@@ -1,6 +1,7 @@
 
 import axios from 'axios';
-
+import slugify from 'slugify';
+import { limitTextUnicode } from '../helpers/sliceChar';
 
 export const searching = async (search_key: string) => {
     try {
@@ -24,7 +25,7 @@ export const searching = async (search_key: string) => {
                     "messages": [
                         {
                             "type": "text",
-                            "text": "Xin lỗi, hệ thống đang bận. Vui lòng thử lại sau ít phút."
+                            "text": `Xin lỗi, hệ thống không tìm thấy sản phẩm nào với từ khóa "${search_key}".`
                         }
                     ]
                 }
@@ -39,12 +40,12 @@ export const searching = async (search_key: string) => {
                     {
                         type: "list",
                         elements: items.map((item: any) => ({
-                            title: item.name,
-                            subtitle: item.price,
+                            title: limitTextUnicode(item.name, 65),
+                            subtitle: `${item.price.toLocaleString('vi-VN')} ₫`,
                             image_url: item.image,
                             action: {
                                 type: "url",
-                                url: `${process.env.PRODUCT_URL}/${item.name}/${item.code}/sp`
+                                url: `${process.env.PRODUCT_URL}/${slugify(item.name)}/${item.code}/sp`
                             }
                         }))
                     }
