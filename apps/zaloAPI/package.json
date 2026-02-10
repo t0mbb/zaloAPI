@@ -30,7 +30,9 @@
           }
         },
         "configurations": {
-          "development": {},
+          "development": {
+            "main": "apps/zaloAPI/src/main.dev.ts"
+          },
           "production": {
             "esbuildOptions": {
               "sourcemap": false,
